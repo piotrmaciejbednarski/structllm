@@ -111,8 +111,9 @@ class StructLLM:
             # If all parsing attempts fail, return raw response
             return StructuredResponse(raw_response=response)
 
+    @staticmethod
     def _prepare_messages(
-        self, messages: List[Dict[str, str]], schema: Dict[str, Any]
+        messages: List[Dict[str, str]], schema: Dict[str, Any]
     ) -> List[Dict[str, str]]:
         """Prepare messages with structured output instructions."""
 
@@ -148,7 +149,8 @@ class StructLLM:
 
         return structured_messages
 
-    def _extract_json(self, content: str) -> Optional[Dict[str, Any]]:
+    @staticmethod
+    def _extract_json(content: str) -> Optional[Dict[str, Any]]:
         """Extract JSON from content that might contain additional text."""
         # Try to find JSON within the content
         content = content.strip()
