@@ -22,12 +22,14 @@ class CalendarEvent(BaseModel):
 class TestStructLLM:
     """Test cases for StructLLM client."""
 
-    def test_init_default(self):
+    @staticmethod
+    def test_init_default():
         """Test StructLLM initialization with default parameters."""
         client = StructLLM()
         assert client is not None
 
-    def test_init_with_params(self):
+    @staticmethod
+    def test_init_with_params():
         """Test StructLLM initialization with custom parameters."""
         with patch("structllm.client.litellm") as mock_litellm:
             client = StructLLM(api_base="http://localhost:1234/v1", api_key="test-key")
@@ -130,7 +132,8 @@ class TestStructLLM:
         assert response.output_parsed is None
         assert response.raw_response == mock_response
 
-    def test_prepare_messages_with_system(self):
+    @staticmethod
+    def test_prepare_messages_with_system():
         """Test message preparation with existing system message."""
         client = StructLLM()
         messages = [
@@ -147,7 +150,8 @@ class TestStructLLM:
         assert "JSON Schema:" in result[0]["content"]
         assert result[1]["role"] == "user"
 
-    def test_prepare_messages_without_system(self):
+    @staticmethod
+    def test_prepare_messages_without_system():
         """Test message preparation without system message."""
         client = StructLLM()
         messages = [{"role": "user", "content": "Extract info."}]
@@ -160,7 +164,8 @@ class TestStructLLM:
         assert "JSON Schema:" in result[0]["content"]
         assert result[1]["role"] == "user"
 
-    def test_extract_json_valid(self):
+    @staticmethod
+    def test_extract_json_valid():
         """Test JSON extraction from text."""
         client = StructLLM()
         content = 'Here is the result: {"name": "test", "value": 123} and more text'
@@ -171,7 +176,8 @@ class TestStructLLM:
         assert result["name"] == "test"
         assert result["value"] == 123
 
-    def test_extract_json_invalid(self):
+    @staticmethod
+    def test_extract_json_invalid():
         """Test JSON extraction with no valid JSON."""
         client = StructLLM()
         content = "This contains no JSON at all"
@@ -180,7 +186,8 @@ class TestStructLLM:
 
         assert result is None
 
-    def test_extract_json_malformed(self):
+    @staticmethod
+    def test_extract_json_malformed():
         """Test JSON extraction with malformed JSON."""
         client = StructLLM()
         content = 'Here is broken JSON: {"name": "test", "value":} incomplete'
