@@ -1,4 +1,7 @@
-"""Integration tests for StructLLM with local endpoint."""
+"""
+Integration tests for StructLLM with local endpoint.
+You can use any other endpoint, but this example uses OpenRouter.
+"""
 
 import os
 from typing import List
@@ -40,7 +43,7 @@ def test_openrouter_endpoint():
 
     try:
         response = client.parse(
-            model="openrouter/moonshotai/kimi-k2",
+            model="openrouter/moonshotai/kimi-k2",  # Kimi K2 model
             messages=messages,
             response_format=CalendarEvent,
         )
